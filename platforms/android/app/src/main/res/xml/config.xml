@@ -4,9 +4,10 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>HelloCordova</name>
+    <name>ToDoList</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A To Do List application that can run on mobile devices. It contains the basic functionalities of adding tasks, 
+        marking tasks asdone, deleting completed tasks, and taks maintaining their state even after the app has been closed.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
