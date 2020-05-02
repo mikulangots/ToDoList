@@ -7,9 +7,9 @@ var app = {
         //DeviceReady = Main
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         //When user returns to the application
-        document.addEventListener('resume', this.pauseListener.bind(this), false);
+        document.addEventListener('pause', this.pauseListener.bind(this), false);
         //When user moves to another application
-        document.addEventListener('pause', this.resumeListener.bind(this), false);
+        document.addEventListener('resume', this.resumeListener.bind(this), false);
 
         //Application Events
         
