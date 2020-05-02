@@ -21,6 +21,34 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         alert("Application is loaded")
+
+        //When list item is clicked
+        $("ul").on("click", "li", function(){
+            $(this).toggleClass("completed");
+          })
+
+
+      //when add button is ticked
+      $("#add").click(function(){
+        
+        if ($("#todo").val() !== ""){
+          var newToDo = $("#todo").val();
+        
+          var newLine = $("ul").append("<li><a href='#' class='listItem'>" + newToDo + "</a><a href='#' data-icon='delete' class='deleteBtn'></a></li>");
+          $("ul").listview("refresh");
+          $("#todo").val("");
+
+          //when delete button is ticked 
+          newLine.on('click', '.deleteBtn', function(){
+            $(this).parent().remove();
+          })
+
+        }else{
+          alert("Please enter a task");
+
+        }
+
+      });
     },
 
     pauseListener: function(){
