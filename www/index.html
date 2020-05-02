@@ -3,43 +3,111 @@
 <html>
     <head>
        
+        <!--   
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-
-        <!-- template css <link rel="stylesheet" type="text/css" href="css/index.css"> -->
-
-        <!-- Bootstrap css and jquery and js-->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="js/jquery-3.5.0.min.js" ></script>
-        <script src="js/bootstrap.min.js" ></script>
-
+        <meta name="msapplication-tap-highlight" content="no"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+        <!-- JQuery Mobile-->
+        <link rel="stylesheet" href="themes/jquery.mobile-1.4.5.min.css" />
+        <script src="themes/jquery-1.11.1.min.js"></script>
+        <script src="themes/jquery.mobile-1.4.5.min.js"></script>
+     
         <title>To Do List</title>
     </head>
     <body>
-        <div class="app">
-            <div class="container">
-                <div class="row">
-                  <div class="col-sm-4">
-                    <h3>Column 1</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-                  </div>
-                  <div class="col-sm-4">
-                    <h3>Column 2</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-                  </div>
-                  <div class="col-sm-4">
-                    <h3>Column 3</h3>        
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-                  </div>
-                </div>
-              </div>
+        <div data-role="page1">
+          <!--- Header -->
+          <div data-role="header">
+            <h1 style="text-align: center;">TO DO</h1>
+          </div> 
+
+          <div role="main" class="ui-content" style="background-color: rgb(255, 202, 70);">
+            <!--To Do Textbox-->
+            <label for="todo">Add To Do</label>
+            <input type="text" name="todo" id="todo" value ="">
+            <!--Add Button-->
+            <input type="button" id="add" value="ADD" >
+            <!--Checkboxes-->
+            <fieldset data-role="controlgroup" id="list">
+              <input type="checkbox" name="crime" id="crime" value="crime">
+              <label for="crime" >Crime</label>
+              <input type="checkbox" name="biography" id="biography" value="biography">
+              <label for="biography">Biography</label>
+              <input type="checkbox" name="textbook" id="textbook" value="textbook">
+              <label for="textbook">Textbook</label>
+            </fieldset>
+          
+
+          </div>
+          <!-- FOOTER -->
+          <div data-role="footer" style="text-align: center;">Michael H - 6955</div>
         </div>
+
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+
+            let userPreference = new Set();
+
+            $(document).ready(function(){
+
+              //When checkbox is ticked
+              $("input[type=checkbox]").click(function(){
+                if(this.checked){
+                  //add to the userPreference
+                  //array - push
+                  //set - add
+                  userPreference.add(this.value);
+                  //adds strike-through
+                  $(this).parent().css({
+                    'text-decoration': 'line-through',
+                    'color': 'red'
+                  })
+                 
+                }else{
+                  //remove from the userPreference
+                  //pop
+                  userPreference.delete(this.value);
+                  //remove strike-through
+                  $(this).parent().css({
+                    'text-decoration': 'none',
+                    'color': '#000'
+                  })
+                }
+              });
+
+              //when add button is ticked
+              $("#add").click(function(){
+                
+                if ($("#todo").val() !== ""){
+                  var newToDo = $("#todo").val();
+                  var newChkbox = $("<input/>", {type:"checkbox", id:newToDo, value:newToDo}).appendTo("fieldset");
+                  var newLabel = $("<label/>",{text: newToDo}).appendTo("fieldset");
+                  
+
+                }else{
+                  alert("Please enter a task");
+
+                }
+                
+
+             
+
+              });
+
+
+            });
+            
+            
+
+            
+
+  
+
+        </script>
+        
     </body>
 </html>
