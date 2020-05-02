@@ -11,6 +11,7 @@
    
         <!-- JQuery Mobile-->
         <link rel="stylesheet" href="themes/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" href="css/index.css" />
         <script src="themes/jquery-1.11.1.min.js"></script>
         <script src="themes/jquery.mobile-1.4.5.min.js"></script>
      
@@ -25,24 +26,35 @@
 
           <div role="main" class="ui-content" style="background-color: rgb(255, 202, 70);">
             <!--To Do Textbox-->
-            <label for="todo">Add To Do</label>
+            <label for="todo" style="color: darkred; font-size:20px; font-weight: 600;">Add To Do</label>
             <input type="text" name="todo" id="todo" value ="">
             <!--Add Button-->
             <input type="button" id="add" value="ADD" >
             <!--Checkboxes-->
-            <fieldset data-role="controlgroup" id="list">
+          <!--   <fieldset data-role="controlgroup" id="list">
               <input type="checkbox" name="crime" id="crime" value="crime">
               <label for="crime" >Crime</label>
               <input type="checkbox" name="biography" id="biography" value="biography">
               <label for="biography">Biography</label>
               <input type="checkbox" name="textbook" id="textbook" value="textbook">
               <label for="textbook">Textbook</label>
-            </fieldset>
-          
+            </fieldset> -->
+
+            <!--list view-->
+            <ul data-role="listview" data-split-icon="delete" data-split-theme="a" data-inset="true">
+              <!-- <li>
+                <a href="#">Item 1</a>
+                <a href="#" data-icon="delete"class="deleteBtn" ></a>
+              </li>
+              <li>
+                <a href="#">Item 2</a>
+                <a href="#" data-icon="delete" class="deleteBtn"></a>
+              </li> -->
+            </ul>
 
           </div>
           <!-- FOOTER -->
-          <div data-role="footer" style="text-align: center;">Michael H - 6955</div>
+          <div data-role="footer" style="text-align: center; position: absolute !important; bottom:0; width:100%">Michael H - 6955</div>
         </div>
 
 
@@ -51,6 +63,7 @@
         <script type="text/javascript">
 
             let userPreference = new Set();
+            
 
             $(document).ready(function(){
 
@@ -79,33 +92,35 @@
                 }
               });
 
+              //When list item is clicked
+              $("ul").on("click", "li", function(){
+                    $(this).toggleClass("completed");
+                  })
+
+
               //when add button is ticked
               $("#add").click(function(){
                 
                 if ($("#todo").val() !== ""){
                   var newToDo = $("#todo").val();
-                  var newChkbox = $("<input/>", {type:"checkbox", id:newToDo, value:newToDo}).appendTo("fieldset");
-                  var newLabel = $("<label/>",{text: newToDo}).appendTo("fieldset");
-                  
+                
+                  var newLine = $("ul").append("<li><a href='#' class='listItem'>" + newToDo + "</a><a href='#' data-icon='delete' class='deleteBtn'></a></li>");
+                  $("ul").listview("refresh");
+                  $("#todo").val("");
+
+                  //when delete button is ticked 
+                  newLine.on('click', '.deleteBtn', function(){
+                    $(this).parent().remove();
+                  })
 
                 }else{
                   alert("Please enter a task");
 
                 }
-                
-
-             
-
+ 
               });
 
-
             });
-            
-            
-
-            
-
-  
 
         </script>
         
