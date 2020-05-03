@@ -22,40 +22,45 @@ var app = {
     onDeviceReady: function() {
         alert("Application is loaded")
 
-        //When list item is clicked
-        $("ul").on("click", "li", function(){
-            $(this).toggleClass("completed");
-          })
-
-
-      //when add button is ticked
-      $("#add").click(function(){
-        
+      //when add button is ticked add item to list
+      $("#add").click(function(){        
         if ($("#todo").val() !== ""){
-          var newToDo = $("#todo").val();
-        
-          var newLine = $("ul").append("<li><a href='#' class='listItem'>" + newToDo + "</a><a href='#' data-icon='delete' class='deleteBtn'></a></li>");
+          var newToDo = $("#todo").val();        
+          var newLine = $("ul").append("<li><a href='#' class='listItem' id='" + newToDo + "'>" + newToDo + "</a><a href='#' data-icon='delete' class='deleteBtn'></a></li>");
           $("ul").listview("refresh");
           $("#todo").val("");
 
-          //when delete button is ticked 
+          //when delete button is ticked remove item from list
           newLine.on('click', '.deleteBtn', function(){
-            $(this).parent().remove();
+            $(this).parent().remove();       
           })
 
         }else{
           alert("Please enter a task");
-
-        }
-
+        };
       });
+        
+      //When list item is clicked toggle complete/incomplete
+      $("ul").on("click", "li", function(){
+        $(this).toggleClass("completed");
+      });
+
     },
 
+
+    //Pause Event Handler
     pauseListener: function(){
-        alert("Application is paused")
-        //save state
+        alert("Application is paused");
+
+        //save state into local storage
+        /* couldn't figure this out how to save the items in the list when leaving the app
+           
+        */
+
     },
 
+
+    //Resume Event Handler
     resumeListener: function(){
         alert("Application is resumed")
         //load the saved state and update the UI

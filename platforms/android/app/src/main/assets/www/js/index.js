@@ -15,6 +15,8 @@ var app = {
         
     },
 
+    
+
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -22,40 +24,65 @@ var app = {
     onDeviceReady: function() {
         alert("Application is loaded")
 
-        //When list item is clicked
-        $("ul").on("click", "li", function(){
-            $(this).toggleClass("completed");
-          })
+        let itemList = new Set();
 
-
-      //when add button is ticked
-      $("#add").click(function(){
-        
+      //when add button is ticked add item to list
+      $("#add").click(function(){        
         if ($("#todo").val() !== ""){
-          var newToDo = $("#todo").val();
-        
-          var newLine = $("ul").append("<li><a href='#' class='listItem'>" + newToDo + "</a><a href='#' data-icon='delete' class='deleteBtn'></a></li>");
+          var newToDo = $("#todo").val();        
+          var newLine = $("ul").append("<li><a href='#' class='listItem' id='" + newToDo + "'>" + newToDo + "</a><a href='#' data-icon='delete' class='deleteBtn'></a></li>");
           $("ul").listview("refresh");
           $("#todo").val("");
 
-          //when delete button is ticked 
+          itemList.add(this.value);
+
+          //when delete button is ticked remove item from list
           newLine.on('click', '.deleteBtn', function(){
-            $(this).parent().remove();
+            $(this).parent().remove();       
           })
+
+          itemList.delete(this.value);
 
         }else{
           alert("Please enter a task");
-
         }
 
-      });
+        //save state into local storage
+        let listItemText = "";
+        for (let item of itemList) {
+          listItemText = listItemText + "," + item;
+        }
+        window.localStorage.setItem("ITEM_LIST", listItemText);
+        alert(window.localStorage.getItem("ITEM_LIST"));
+        });
+
+      //When list item is clicked toggle complete/incomplete
+      $("ul").on("click", "li", function(){
+        $(this).toggleClass("completed");
+      })
+
+     
+
     },
 
+
+    //Pause Event Handler
     pauseListener: function(){
         alert("Application is paused")
-        //save state
+
+        //save state into local storage
+        let listItemText = "";
+        for (let item of "ul") {
+          listItemText = listItemText + "," + item;
+        }
+        window.localStorage.setItem("ITEM_LIST", listItemText);
+        alert(window.localStorage.getItem("ITEM_LIST"));
+
+
     },
 
+
+    //Resume Event Handler
     resumeListener: function(){
         alert("Application is resumed")
         //load the saved state and update the UI
